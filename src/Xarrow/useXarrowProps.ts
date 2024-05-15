@@ -10,7 +10,7 @@ import {
   xarrowPropsType,
 } from '../types';
 import { getElementByPropGiven, getElemPos, xStr2absRelative } from './utils';
-import _ from 'lodash';
+import isEqual from 'lodash/isEqual';
 import { arrowShapes, cAnchorEdge, cArrowShapes } from '../constants';
 import { anchorEdgeType, dimensionType } from '../privateTypes';
 
@@ -29,7 +29,7 @@ const parseLabels = (label: xarrowPropsType['labels']): labelsType => {
 
 // remove 'auto' as possible anchor from anchorCustomPositionType.position
 interface anchorCustomPositionType2 extends Omit<Required<anchorCustomPositionType>, 'position'> {
-  position: Exclude<typeof cAnchorEdge[number], 'auto'>;
+  position: Exclude<(typeof cAnchorEdge)[number], 'auto'>;
 }
 
 const parseAnchor = (anchor: anchorType) => {
@@ -292,16 +292,12 @@ const initialValVars = {
 
 // const parseAllProps = () => parseGivenProps(defaultProps, initialParsedProps);
 
-function deepCompareEquals(a, b) {
-  return _.isEqual(a, b);
-}
-
 function useDeepCompareMemoize(value) {
   const ref = useRef();
   // it can be done by using useMemo as well
   // but useRef is rather cleaner and easier
 
-  if (!deepCompareEquals(value, ref.current)) {
+  if (!isEqual(value, ref.current)) {
     ref.current = value;
   }
 

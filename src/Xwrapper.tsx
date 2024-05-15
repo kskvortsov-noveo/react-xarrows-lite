@@ -8,7 +8,10 @@ let updateRefCount = 0;
 
 const log = console.log;
 
-const XarrowProvider: FC<{ instanceCount: React.MutableRefObject<number> }> = ({ children, instanceCount }) => {
+const XarrowProvider: FC<{ instanceCount: React.MutableRefObject<number>; children: React.ReactNode }> = ({
+  children,
+  instanceCount,
+}) => {
   const [, setRender] = useState({});
   const updateXarrow = () => setRender({});
   useEffect(() => {
