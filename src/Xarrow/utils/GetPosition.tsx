@@ -1,8 +1,7 @@
 import { useXarrowPropsResType } from '../useXarrowProps';
-import React from 'react';
+import { MutableRefObject } from 'react';
 import { calcAnchors } from '../anchors';
 import { getShortestLine, getSvgPos } from './index';
-import pick from 'lodash/pick';
 import { cPaths } from '../../constants';
 import { buzzierMinSols, bzFunction } from './buzzier';
 
@@ -10,7 +9,7 @@ import { buzzierMinSols, bzFunction } from './buzzier';
  * The Main logic of path calculation for the arrow.
  * calculate new path, adjusting canvas, and set state based on given properties.
  * */
-export const getPosition = (xProps: useXarrowPropsResType, mainRef: React.MutableRefObject<any>) => {
+export const getPosition = (xProps: useXarrowPropsResType, mainRef: MutableRefObject<any>) => {
   let [propsRefs, valVars] = xProps;
   let {
     startAnchor,
@@ -46,16 +45,14 @@ export const getPosition = (xProps: useXarrowPropsResType, mainRef: React.Mutabl
 
   let startAnchorPosition = chosenStart.anchor.position,
     endAnchorPosition = chosenEnd.anchor.position;
-  let startPoint = pick(chosenStart, ['x', 'y']),
-    endPoint = pick(chosenEnd, ['x', 'y']);
 
   let mainDivPos = getSvgPos(svgRef);
-  let cx0 = Math.min(startPoint.x, endPoint.x) - mainDivPos.x;
-  let cy0 = Math.min(startPoint.y, endPoint.y) - mainDivPos.y;
-  let dx = endPoint.x - startPoint.x;
-  let dy = endPoint.y - startPoint.y;
-  let absDx = Math.abs(endPoint.x - startPoint.x);
-  let absDy = Math.abs(endPoint.y - startPoint.y);
+  let cx0 = Math.min(chosenStart.x, chosenEnd.x) - mainDivPos.x;
+  let cy0 = Math.min(chosenStart.y, chosenEnd.y) - mainDivPos.y;
+  let dx = chosenEnd.x - chosenStart.x;
+  let dy = chosenEnd.y - chosenStart.y;
+  let absDx = Math.abs(chosenEnd.x - chosenStart.x);
+  let absDy = Math.abs(chosenEnd.y - chosenStart.y);
   let xSign = dx > 0 ? 1 : -1;
   let ySign = dy > 0 ? 1 : -1;
   let [headOffset, tailOffset] = [headShape.offsetForward, tailShape.offsetForward];

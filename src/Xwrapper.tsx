@@ -6,8 +6,6 @@ export const XarrowContext = React.createContext(null as () => void);
 const updateRef = {};
 let updateRefCount = 0;
 
-const log = console.log;
-
 const XarrowProvider: FC<{ instanceCount: React.MutableRefObject<number>; children: React.ReactNode }> = ({
   children,
   instanceCount,

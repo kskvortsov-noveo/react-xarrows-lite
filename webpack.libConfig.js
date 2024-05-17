@@ -1,23 +1,16 @@
 const path = require('path');
-// const nodeExternals = require('webpack-node-externals');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = (env, argv) => {
   const { mode } = argv;
-  const isDev = mode === 'development';
-  const isProd = mode === 'production';
   return {
+    plugins: [
+      // new BundleAnalyzerPlugin()
+    ],
     name: 'lib',
     mode: mode,
     target: ['web', 'es5'],
-    externals: [
-      {
-        react: 'react',
-        lodash: 'lodash',
-        'prop-types': 'prop-types',
-      },
-      // nodeExternals(),
-    ],
-    // externalsPresets: { node: true },
+    externals: ['react', 'lodash/isEqual'],
     devtool: false,
     entry: path.resolve(__dirname, './src/index.tsx'),
 
@@ -47,7 +40,7 @@ module.exports = (env, argv) => {
             {
               loader: 'ts-loader',
               options: {
-                compilerOptions: isProd ? { sourceMap: false, declarationMap: false } : {},
+                compilerOptions: { sourceMap: false, declarationMap: false }
               },
             },
           ],

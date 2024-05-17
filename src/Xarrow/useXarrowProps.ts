@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import { isValidElement, useLayoutEffect, useRef, useState } from 'react';
 import {
   anchorCustomPositionType,
   anchorType,
@@ -17,7 +17,7 @@ import { anchorEdgeType, dimensionType } from '../privateTypes';
 const parseLabels = (label: xarrowPropsType['labels']): labelsType => {
   let parsedLabel = { start: null, middle: null, end: null };
   if (label) {
-    if (typeof label === 'string' || React.isValidElement(label)) parsedLabel.middle = label;
+    if (typeof label === 'string' || isValidElement(label)) parsedLabel.middle = label;
     else {
       for (let key in label) {
         parsedLabel[key] = label[key];
@@ -311,10 +311,7 @@ function useDeepCompareEffect(callback, dependencies) {
 /**
  * smart hook that provides parsed props to Xarrow and will trigger rerender whenever given prop is changed.
  */
-const useXarrowProps = (
-  userProps: xarrowPropsType,
-  refs: { headRef: React.MutableRefObject<any>; tailRef: React.MutableRefObject<any> }
-) => {
+const useXarrowProps = (userProps: xarrowPropsType) => {
   const [propsRefs, setPropsRefs] = useState(initialParsedProps);
   const shouldUpdatePosition = useRef(false);
   // const _propsRefs = useRef(initialParsedProps);

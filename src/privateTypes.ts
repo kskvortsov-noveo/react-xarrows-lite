@@ -6,8 +6,3 @@ export type dimensionType = {
 };
 
 export type anchorEdgeType = 'left' | 'right' | 'top' | 'bottom';
-
-// pick the common props between 2 objects
-type Common<A, B> = {
-  [P in keyof A & keyof B]: A[P] | B[P];
-};

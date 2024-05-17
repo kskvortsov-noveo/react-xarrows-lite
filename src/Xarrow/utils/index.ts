@@ -1,5 +1,5 @@
 import { anchorCustomPositionType, refType } from '../../types';
-import React from 'react';
+import { MutableRefObject } from 'react';
 
 export const getElementByPropGiven = (ref: refType): HTMLElement => {
   let myRef;
@@ -75,7 +75,7 @@ export const getElemPos = (elem: HTMLElement) => {
   };
 };
 
-export const getSvgPos = (svgRef: React.MutableRefObject<any>) => {
+export const getSvgPos = (svgRef: MutableRefObject<any>) => {
   if (!svgRef.current) return { x: 0, y: 0 };
   let { left: xarrowElemX, top: xarrowElemY } = svgRef.current.getBoundingClientRect();
   let xarrowStyle = getComputedStyle(svgRef.current);

@@ -2,10 +2,7 @@ import React, { useContext, useEffect, useLayoutEffect, useRef, useState } from 
 import { xarrowPropsType } from '../types';
 import useXarrowProps from './useXarrowProps';
 import { XarrowContext } from '../Xwrapper';
-import XarrowPropTypes from './propTypes';
 import { getPosition } from './utils/GetPosition';
-
-const log = console.log;
 
 const Xarrow: React.FC<xarrowPropsType> = (props: xarrowPropsType) => {
   // log('xarrow update');
@@ -14,14 +11,13 @@ const Xarrow: React.FC<xarrowPropsType> = (props: xarrowPropsType) => {
     svgRef: useRef<SVGSVGElement>(null),
     lineRef: useRef<SVGPathElement>(null),
     headRef: useRef<SVGElement>(null),
-    tailRef: useRef<SVGElement>(null),
     lineDrawAnimRef: useRef<SVGElement>(null),
     lineDashAnimRef: useRef<SVGElement>(null),
     headOpacityAnimRef: useRef<SVGElement>(null),
   });
-  const { svgRef, lineRef, headRef, tailRef, lineDrawAnimRef, lineDashAnimRef, headOpacityAnimRef } = mainRef.current;
+  const { svgRef, lineRef, headRef, lineDrawAnimRef, lineDashAnimRef, headOpacityAnimRef } = mainRef.current;
   useContext(XarrowContext);
-  const xProps = useXarrowProps(props, mainRef.current);
+  const xProps = useXarrowProps(props);
   const [propsRefs] = xProps;
 
   let {
@@ -376,8 +372,5 @@ const Xarrow: React.FC<xarrowPropsType> = (props: xarrowPropsType) => {
 };
 
 //////////////////////////////
-// propTypes
-
-Xarrow.propTypes = XarrowPropTypes;
 
 export default Xarrow;
